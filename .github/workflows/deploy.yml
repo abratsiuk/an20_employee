@@ -26,23 +26,14 @@ jobs:
         run: npm ci
 
       - name: Build Angular
-        shell: bash
         run: |
-          set -e
           npx ng build --configuration=production --base-href /an20_real_test_project-/
-          # найдём папку с index.html (Angular 20 кладёт в dist/<app>)
-          DIST_DIR=$(find dist -maxdepth 2 -type f -name index.html -printf '%h\n' | head -n1)
-          if [ -z "$DIST_DIR" ]; then
-            echo "index.html not found in dist"; exit 1
-          fi
-          cp "$DIST_DIR/index.html" "$DIST_DIR/404.html"   # SPA fallback
-          echo "DIST_DIR=$DIST_DIR" >> "$GITHUB_ENV"
-          echo "Using DIST_DIR=$DIST_DIR"
+          cp dist/an_test_project_20/browser/index.html dist/an_test_project_20/browser/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.DIST_DIR }}
+          path: dist/an_test_project_20/browser
 
   deploy:
     needs: build
