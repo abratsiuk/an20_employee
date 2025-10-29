@@ -29,13 +29,23 @@ jobs:
       - name: Build Angular
         run: |
           npx ng build --configuration=production --base-href /an20_real_test_project-/
-          # SPA fallback for GitHub Pages
-          cp dist/*/index.html dist/*/404.html
+          # autodetect CSR/SSR layout and add SPA 404.html
+          DIST_DIR=$(ls -d dist/*/ | head -n1)
+          if [ -f "${DIST_DIR}index.html" ]; then
+            cp "${DIST_DIR}index.html" "${DIST_DIR}404.html"
+            echo "DIST_DIR=${DIST_DIR%/}" >> $GITHUB_ENV
+          elif [ -f "${DIST_DIR}browser/index.html" ]; then
+            cp "${DIST_DIR}browser/index.html" "${DIST_DIR}browser/404.html"
+            echo "DIST_DIR=${DIST_DIR%/}browser" >> $GITHUB_ENV
+          else
+            echo "index.html not found in dist"; exit 1
+          fi
+      
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/*
+          path: ${{ env.DIST_DIR }}
 
   deploy:
     needs: build
