@@ -30,12 +30,12 @@ jobs:
         run: |
           npx ng build --configuration=production --base-href /an20_real_test_project-/
           # SPA fallback for GitHub Pages
-          cp dist/*/browser/index.html dist/*/browser/404.html
+          cp dist/*/index.html dist/*/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/*/browser
+          path: dist/*
 
   deploy:
     needs: build
