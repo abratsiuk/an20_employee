@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { BooksService } from './features/books/data-access/books-service';
-import { IBookDataDto } from './shared/models/ibook-data-dto.model';
+import { IBookDataDto } from './shared/models/ibook-data.dto';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { startWith } from 'rxjs';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
+export class AppComponent {
   protected readonly title = signal('an_test_project_20');
 
   private readonly booksService = inject(BooksService);
