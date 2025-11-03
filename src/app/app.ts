@@ -23,7 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class AppComponent {
   // Application title as a signal (zoneless-friendly)
-  readonly title = signal('AN Test Project 20');
+  readonly title = signal('Employee`s data');
 
   // Controls sidenav open/close state
   readonly sidenavOpened = signal(true);
