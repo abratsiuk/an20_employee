@@ -27,7 +27,7 @@ jobs:
 
       - name: Build Angular
         run: |
-          npx ng build --configuration=production --base-href /an20_real_test_project-/
+          npx ng build --configuration=production --base-href /an20_employee/
           cp dist/an_test_project_20/browser/index.html dist/an_test_project_20/browser/404.html
 
       - name: Upload artifact
