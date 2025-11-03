@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { IBookDataDto } from '../../../shared/models/ibook-data.dto';
+import { BookDataDto } from '../../../shared/models/book-data.dto';
 
 @Injectable({ providedIn: 'root' })
 export class BooksService {
@@ -12,7 +12,7 @@ export class BooksService {
   /**
    * Get all books (non-paged).
    */
-  getAll$(): Observable<IBookDataDto[]> {
-    return this.http.get<IBookDataDto[]>(this.base);
+  getAll$(): Observable<BookDataDto[]> {
+    return this.http.get<BookDataDto[]>(this.base);
   }
 }

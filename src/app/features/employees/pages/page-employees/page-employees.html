@@ -1,1 +1,13 @@
-<p>page-employees works!</p>
+<section>
+  <h2>Employees (all)</h2>
+  <ul>
+    @for (e of employees(); track e.id) {
+      <li>
+        <strong>{{ e.firstName }} {{ e.lastName }} </strong>
+        {{ e.departmentName }}
+        {{ e.managerFullName }}
+        {{ e.salary }}
+      </li>
+    }
+  </ul>
+</section>
