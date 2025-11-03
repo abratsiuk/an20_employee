@@ -1,1 +1,10 @@
-<p>page-books works!</p>
+<section>
+  <h2>Books (all)</h2>
+  <ul>
+    @for (b of books(); track b.id) {
+      <li>
+        <strong>{{ b.title }}</strong> — {{ b.authors }} ({{ b.publicationYear }})
+      </li>
+    }
+  </ul>
+</section>

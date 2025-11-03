@@ -1,19 +1,34 @@
-import { Component, inject, signal } from '@angular/core';
-import { BooksService } from './features/books/data-access/books-service';
-import { IBookDataDto } from './shared/models/ibook-data.dto';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { startWith } from 'rxjs';
+import { Component, signal } from '@angular/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterOutlet,
+    RouterLinkActive,
+    RouterLink,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class AppComponent {
-  protected readonly title = signal('an_test_project_20');
+  // Application title as a signal (zoneless-friendly)
+  readonly title = signal('AN Test Project 20');
 
-  private readonly booksService = inject(BooksService);
+  // Controls sidenav open/close state
+  readonly sidenavOpened = signal(true);
 
-  readonly books = toSignal(this.booksService.getAll$().pipe(startWith([] as IBookDataDto[])));
+  toggleSidenav(): void {
+    this.sidenavOpened.update((opened) => !opened);
+  }
 }

@@ -1,10 +1,25 @@
-<section>
-  <h2>Books (all)</h2>
-  <ul>
-    @for (b of books(); track b.id) {
-      <li>
-        <strong>{{ b.title }}</strong> — {{ b.authors }} ({{ b.publicationYear }})
-      </li>
-    }
-  </ul>
-</section>
+<header class="app-header">
+  <div class="app-header__title" [routerLink]="['/employees']">AN Test Project 20</div>
+
+  <nav class="app-header__nav">
+    <a
+      routerLink="/employees"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Employees
+    </a>
+
+    <a
+      routerLink="/books"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Books
+    </a>
+  </nav>
+</header>
+
+<main class="app-main">
+  <router-outlet></router-outlet>
+</main>

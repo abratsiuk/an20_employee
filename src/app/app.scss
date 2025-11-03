@@ -1,0 +1,70 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1rem 2rem;
+  background-color: #fafafa;
+  border-bottom: 4px solid #00acc1;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05);
+}
+
+.app-header__title {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: pointer;
+  text-decoration: none;
+
+  &:link,
+  &:visited {
+    color: inherit;
+  }
+}
+
+.app-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.app-header__nav a {
+  font-size: 1rem;
+  text-transform: lowercase;
+  text-decoration: none;
+  color: #1976d2;
+}
+
+.app-header__nav a.active-link {
+  text-decoration: none;
+  text-shadow: 0 0 3px rgba(25, 118, 210, 0.6);
+  color: #1976d2;
+}
+
+.app-main {
+  flex: 1 1 auto;
+  padding: 1.5rem 2rem 2rem;
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    padding: 1rem 0.5rem 0.25rem 1rem;
+  }
+
+  .app-main {
+    padding: 1rem;
+  }
+
+  .app-header__nav {
+    gap: 1rem;
+  }
+}
