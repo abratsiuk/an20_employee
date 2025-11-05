@@ -9,7 +9,6 @@ import { EmployeeRead } from '../../../shared/models/employee-read.dto';
 import { EmployeeCreate } from '../../../shared/models/employee-create.dto';
 import { EmployeeUpdate } from '../../../shared/models/employee-update.dto';
 import { EmployeeCanDelete } from '../../../shared/models/employee-can-delete.dto';
-import { Sort } from '../../../shared/models/sort.model';
 import { PageResult } from '../../../shared/models/page-result.model';
 
 @Injectable({ providedIn: 'root' })
@@ -17,11 +16,11 @@ export class EmployeesService {
   private readonly http = inject(HttpClient);
   private readonly base = `${environment.apiBaseUrl}/api/employees`;
 
-  getAll$(): Observable<EmployeeData[] | null> {
+  getAll$(): Observable<EmployeeData[]> {
     return this.http.get<EmployeeData[]>(this.base).pipe(
       catchError((err) => {
         console.error('[EmployeesService] getAll$ error', err);
-        return of(null);
+        return of([] as EmployeeData[]);
       }),
     );
   }
@@ -83,17 +82,22 @@ export class EmployeesService {
     );
   }
 
-  getPage$(pageIndex: number, pageSize: number, sort: Sort): Observable<PageResult<EmployeeData>> {
+  getPage$(
+    pageIndex: number,
+    pageSize: number,
+    sortField: string,
+    sortOrder: 'asc' | 'desc',
+  ): Observable<PageResult<EmployeeData>> {
     const params = new HttpParams()
       .set('page', pageIndex.toString())
       .set('pageSize', pageSize.toString())
-      .set('sort', sort.sortField)
-      .set('order', sort.sortOrder ?? 'asc');
+      .set('sort', sortField)
+      .set('order', sortOrder ?? 'asc');
 
     return this.http.get<PageResult<EmployeeData>>(`${this.base}/page`, { params }).pipe(
       catchError((err) => {
         console.error('[EmployeesService] getPage$ error', err);
-        return of({ data: [], totalCount: 0 } as PageResult<EmployeeData>);
+        return of({ data: [], totalCount: 0 } satisfies PageResult<EmployeeData>);
       }),
     );
   }

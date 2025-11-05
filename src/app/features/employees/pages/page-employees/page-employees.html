@@ -1,13 +1,17 @@
 <section>
   <h2>Employees (all)</h2>
-  <ul>
-    @for (e of employees(); track e.id) {
-      <li>
-        <strong>{{ e.firstName }} {{ e.lastName }} </strong>
-        {{ e.departmentName }}
-        {{ e.managerFullName }}
-        {{ e.salary }}
-      </li>
-    }
-  </ul>
+
+  <app-employees-table
+    [employees]="employees()"
+    [total]="total()"
+    [pageIndex]="pageIndex()"
+    [pageSize]="pageSize()"
+    [sortActive]="sortField()"
+    [sortDirection]="sortDirection()"
+    (create)="onCreate()"
+    (edit)="onEdit($event)"
+    (remove)="onDelete($event)"
+    (pageChange)="onPageChange($event)"
+    (sortChange)="onSortChange($event)"
+  ></app-employees-table>
 </section>
